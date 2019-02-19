@@ -12,11 +12,15 @@ android {
     defaultConfig {
         minSdkVersion cfg.minSdkVersion
         targetSdkVersion cfg.targetSdkVersion
+
         if (isApp.toBoolean()) {
             applicationId = cfg.applicationId + ".a"
             versionCode cfg.versionCode
             versionName cfg.versionName
         }
+
+        resourcePrefix "a_"
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [AROUTER_MODULE_NAME: "a"]
