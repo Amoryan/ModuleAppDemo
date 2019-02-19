@@ -1,19 +1,13 @@
 package com.fxyan.moduleapp.b;
 
-import android.os.Bundle;
-
-import com.fxyan.module.b.R;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import com.fxyan.moduleapp.common.BaseActivity;
 
 /**
  * @author fxYan
  */
-public final class LauncherActivity extends AppCompatActivity {
+public final class LauncherActivity extends BaseActivity {
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.b_activity_moduleb);
+    protected int getLayoutId() {
+        return R.layout.b_activity_launcher;
     }
 }

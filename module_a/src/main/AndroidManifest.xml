@@ -3,7 +3,7 @@
 
     <application>
         <activity
-            android:name=".ModuleActivity"
+            android:name=".ModuleAActivity"
             android:screenOrientation="portrait" />
     </application>
 
