@@ -1,0 +1,62 @@
+if (isApp.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+def cfg = rootProject.ext.cfg
+
+android {
+    compileSdkVersion cfg.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+        if (isApp.toBoolean()) {
+            applicationId cfg.applicationId + ".b"
+            versionCode cfg.versionCode
+            versionName cfg.versionName
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: "b"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            if (isApp.toBoolean()) {
+                manifest.srcFile "src/dev/AndroidManifest.xml"
+                java.srcDirs += "src/dev/java"
+                res.srcDirs += "src/dev/res"
+            } else {
+                java {
+                    exclude "src/dev/java/**"
+                }
+                res {
+                    exclude "src/dev/res/**"
+                }
+            }
+        }
+    }
+
+}
+
+def ver = rootProject.ext.versions
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':common')
+
+    annotationProcessor "com.alibaba:arouter-compiler:${ver["arouter-compiler"]}"
+}
+

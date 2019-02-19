@@ -1,0 +1,44 @@
+apply plugin: 'com.android.application'
+
+def cfg = rootProject.ext.cfg
+
+android {
+    compileSdkVersion cfg.compileSdkVersion
+
+    defaultConfig {
+        applicationId cfg.applicationId
+
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+
+        versionCode cfg.versionCode
+        versionName cfg.versionName
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: "app"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def ver = rootProject.ext.versions
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(":common")
+    if (!isApp.toBoolean()) {
+        implementation project(":module_a")
+        implementation project(":module_b")
+    }
+
+    annotationProcessor "com.alibaba:arouter-compiler:${ver["arouter-compiler"]}"
+}

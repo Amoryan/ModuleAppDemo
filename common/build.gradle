@@ -1,0 +1,26 @@
+apply plugin: 'com.android.library'
+
+def cfg = rootProject.ext.cfg
+
+android {
+    compileSdkVersion cfg.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    api 'androidx.appcompat:appcompat:1.1.0-alpha02'
+
+    api 'com.alibaba:arouter-api:1.4.1'
+}
